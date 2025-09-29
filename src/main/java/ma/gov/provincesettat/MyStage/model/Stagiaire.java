@@ -30,7 +30,7 @@ public class Stagiaire {
     private String specialite;
 
 
-    private String departementId;     // Référence vers Service
+    private String serviceId;     // Référence vers Service
     private String stageId;       // Référence vers Stage
     private String ecoleId;   // Référence vers Ecole
 
