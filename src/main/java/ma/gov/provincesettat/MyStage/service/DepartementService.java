@@ -26,11 +26,18 @@ public class DepartementService {
     public Departement create(Departement departement) {
         return departementRepository.save(departement);
     }
-
     public Departement update(String id, Departement departement) {
-        departement.setId(id);
-        return departementRepository.save(departement);
+        return departementRepository.findById(id)
+                .map(existingDepartement -> {
+                    // mettre à jour seulement les champs nécessaires
+                    existingDepartement.setNom(departement.getNom());
+                    existingDepartement.setDescription(departement.getDescription());
+                    existingDepartement.setChef(departement.getChef());
+                    return departementRepository.save(existingDepartement);
+                })
+                .orElseThrow(() -> new RuntimeException("Departement avec ID " + id + " n'existe pas"));
     }
+
 
     public void delete(String id) {
         departementRepository.deleteById(id);

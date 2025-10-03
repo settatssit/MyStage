@@ -28,9 +28,33 @@ public class StagiaireService {
     }
 
     public Stagiaire update(String id, Stagiaire stagiaire) {
-        stagiaire.setId(id);
-        return stagiaireRepository.save(stagiaire);
+        return stagiaireRepository.findById(id)
+                .map(existingStagiaire -> {
+                    existingStagiaire.setNom(stagiaire.getNom());
+                    existingStagiaire.setPrenom(stagiaire.getPrenom());
+                    existingStagiaire.setCin(stagiaire.getCin());
+                    existingStagiaire.setEmail(stagiaire.getEmail());
+                    existingStagiaire.setTelephone(stagiaire.getTelephone());
+                    existingStagiaire.setDateNaissance(stagiaire.getDateNaissance());
+
+                    existingStagiaire.setCarteNationnale(stagiaire.getCarteNationnale());
+                    existingStagiaire.setPhoto(stagiaire.getPhoto());
+                    existingStagiaire.setCv(stagiaire.getCv());
+                    existingStagiaire.setConventionStage(stagiaire.getConventionStage());
+                    existingStagiaire.setAssurance(stagiaire.getAssurance());
+
+                    existingStagiaire.setSpecialite(stagiaire.getSpecialite());
+                    existingStagiaire.setServiceId(stagiaire.getServiceId());
+                    existingStagiaire.setStageId(stagiaire.getStageId());
+                    existingStagiaire.setEcoleId(stagiaire.getEcoleId());
+                    existingStagiaire.setDateDebut(stagiaire.getDateDebut());
+                    existingStagiaire.setDateFin(stagiaire.getDateFin());
+
+                    return stagiaireRepository.save(existingStagiaire);
+                })
+                .orElseThrow(() -> new RuntimeException("Stagiaire avec ID " + id + " n'existe pas"));
     }
+
 
     public void delete(String id) {
         stagiaireRepository.deleteById(id);

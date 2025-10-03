@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,15 +25,22 @@ public class Stagiaire {
     private String telephone;
     private LocalDate dateNaissance;
 
+    private String carteNationnale;
     private String photo;         // chemin ou URL
     private String cv;            // chemin ou URL
-    private String demandeStage;  // chemin ou URL
+    private String ConventionStage;  // chemin ou URL
+    private String Assurance;
 
     private String specialite;
 
 
-    private String serviceId;     // Référence vers Service
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
+  @DBRef
+  private String serviceId;     // Référence vers Service
+    @DBRef
     private String stageId;       // Référence vers Stage
+    @DBRef
     private String ecoleId;   // Référence vers Ecole
 
 }

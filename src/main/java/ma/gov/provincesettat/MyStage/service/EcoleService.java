@@ -28,9 +28,17 @@ public class EcoleService {
     }
 
     public Ecole update(String id, Ecole ecole) {
-        ecole.setId(id);
-        return ecoleRepository.save(ecole);
+        return ecoleRepository.findById(id)
+                .map(existingEcole -> {
+                    existingEcole.setNom(ecole.getNom());
+                    existingEcole.setEmail(ecole.getEmail());
+                    existingEcole.setPhone(ecole.getPhone());
+                    existingEcole.setLieu(ecole.getLieu());
+                    return ecoleRepository.save(existingEcole);
+                })
+                .orElseThrow(() -> new RuntimeException("Ecole avec ID " + id + " n'existe pas"));
     }
+
 
     public void delete(String id) {
         ecoleRepository.deleteById(id);

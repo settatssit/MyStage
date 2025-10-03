@@ -17,10 +17,14 @@ public class Ecole {
     private String id;
 
     private String nom;
-    private String description;
+//    private String description;
 
     // Chef directement intégré comme sous-document
-    private String lien;
+    private String lieu;
+
+    private  String Email;
+
+    private  String phone;
 
 
 

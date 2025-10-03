@@ -28,9 +28,19 @@ public class StageService {
     }
 
     public Stage update(String id, Stage stage) {
-        stage.setId(id);
-        return stageRepository.save(stage);
+        return stageRepository.findById(id)
+                .map(existingStage -> {
+                    existingStage.setNomProject(stage.getNomProject());
+                    existingStage.setStagiaireId(stage.getStagiaireId());
+                    existingStage.setServiceId(stage.getServiceId());
+                    existingStage.setDateDebut(stage.getDateDebut());
+                    existingStage.setDateFin(stage.getDateFin());
+                    existingStage.setStatus(stage.getStatus());
+                    return stageRepository.save(existingStage);
+                })
+                .orElseThrow(() -> new RuntimeException("Stage avec ID " + id + " n'existe pas"));
     }
+
 
     public void delete(String id) {
         stageRepository.deleteById(id);

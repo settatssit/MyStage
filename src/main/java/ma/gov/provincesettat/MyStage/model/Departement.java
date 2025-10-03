@@ -22,7 +22,7 @@ public class Departement {
 
     // Chef directement intégré comme sous-document
     private String chef;
-
+    private Status status;
 
 
 
